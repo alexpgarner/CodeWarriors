@@ -247,3 +247,60 @@
 // }
 
 // const vm =  (initial) => { return new VersionManager(initial);}
+
+class VersionManager{ //Figured out error handling and other issues
+    constructor(intialVer = "0.0.1"){
+    this._initialVer = intialVer;
+    this._version = [this.formattInput()];
+  }
+  
+  formattInput(){
+    if(this._initialVer == ''|| this._initialVer == undefined){
+      return ['0','0','1'];
+    }
+    let numDecimals = this._initialVer.match(/[.]/g)
+    if(numDecimals== null){
+      this._initialVer += ".0.0";
+    }else if(numDecimals.length==1){
+      this._initialVer += ".0"
+    }
+    let versionArr = this._initialVer.split('.').splice(0,3);
+    //console.log(versionArr) testing for why errors not working. needed to throw new Error() not just exception
+    versionArr.forEach(value => {
+      if(Number.isNaN(Number(value))){
+        console.log("error")
+        throw new Error("Error occured while parsing version!");
+      }
+    });
+    return versionArr;
+  }  
+  major(){
+    this._version.push([`${Number(this._version[this._version.length-1][0])+1}`,'0','0']);
+    return this;
+    }
+  minor(){
+    this._version.push([this._version[this._version.length-1][0],`${Number(this._version[this._version.length-1][1])+1}`,0]);
+    return this;
+    }
+  patch(){
+    this._version.push([this._version[this._version.length-1][0],this._version[this._version.length-1][1],`${Number(this._version[this._version.length-1][2])+1}`]);
+    return this;
+  }
+  
+  rollback(){
+    if(this._version[0] == undefined){
+      throw new Error("Cannot rollback!")
+    }else if(this._version.length == 1){
+      throw new Error ("Cannot rollback!")
+    }else{
+      this._version.pop()
+      return this
+    }
+   }
+  
+  release(){
+    return this._version[this._version.length-1].join('.');
+  }
+}
+
+const vm =  (initial) => { return new VersionManager(initial);}
