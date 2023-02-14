@@ -98,78 +98,152 @@
 //https://www.codewars.com/kata/reviews/588a10ed8dd474fbe6000014/groups/58c842bc79e358cbb6000013
 //should have used a Map instead of Object even though it passed the tests.
 
-In this kata we are going to mimic a software versioning system.
+// In this kata we are going to mimic a software versioning system.
 
-You have to implement a vm function returning an object.
+// You have to implement a vm function returning an object.
 
-It should accept an optional parameter that represents the initial version. The input will be in one of the following formats: "{MAJOR}", "{MAJOR}.{MINOR}", or "{MAJOR}.{MINOR}.{PATCH}". More values may be provided after PATCH but they should be ignored. If these 3 parts are not decimal values, an exception with the message "Error occured while parsing version!" should be thrown. If the initial version is not provided or is an empty string, use "0.0.1" by default.
+// It should accept an optional parameter that represents the initial version. The input will be in one of the following formats: "{MAJOR}", "{MAJOR}.{MINOR}", or "{MAJOR}.{MINOR}.{PATCH}". More values may be provided after PATCH but they should be ignored. If these 3 parts are not decimal values, an exception with the message "Error occured while parsing version!" should be thrown. If the initial version is not provided or is an empty string, use "0.0.1" by default.
 
-This class should support the following methods, all of which should be chainable (except release):
+// This class should support the following methods, all of which should be chainable (except release):
 
-major() - increase MAJOR by 1, set MINOR and PATCH to 0
-minor() - increase MINOR by 1, set PATCH to 0
-patch() - increase PATCH by 1
-rollback() - return the MAJOR, MINOR, and PATCH to their values before the previous major/minor/patch call, or throw an exception with the message "Cannot rollback!" if there's no version to roll back to. Multiple calls to rollback() should be possible and restore the version history
-release() - return a string in the format "{MAJOR}.{MINOR}.{PATCH}"
-May the binary force be with you!
+// major() - increase MAJOR by 1, set MINOR and PATCH to 0
+// minor() - increase MINOR by 1, set PATCH to 0
+// patch() - increase PATCH by 1
+// rollback() - return the MAJOR, MINOR, and PATCH to their values before the previous major/minor/patch call, or throw an exception with the message "Cannot rollback!" if there's no version to roll back to. Multiple calls to rollback() should be possible and restore the version history
+// release() - return a string in the format "{MAJOR}.{MINOR}.{PATCH}"
+// May the binary force be with you!
 
 
-//how to account for vm('1')
-//<FIX> More values may be provided after PATCH but they should be ignored. If these 3 parts are not decimal values, an exception with the message "Error occured while parsing version!"
+// //how to account for vm('1')
+// //<FIX> More values may be provided after PATCH but they should be ignored. If these 3 parts are not decimal values, an exception with the message "Error occured while parsing version!"
 
-//how to account for vm('1')
-//<FIX> More values may be provided after PATCH but they should be ignored. If these 3 parts are not decimal values, an exception with the message "Error occured while parsing version!"
+// //how to account for vm('1')
+// //<FIX> More values may be provided after PATCH but they should be ignored. If these 3 parts are not decimal values, an exception with the message "Error occured while parsing version!"
 
-class VersionManager{
-    constructor(intialVer = "0.0.1"){
-    this._initialVer = intialVer;
-    this._version = [this.formattInput()];
-  }
+// class VersionManager{
+//     constructor(intialVer = "0.0.1"){
+//     this._initialVer = intialVer;
+//     this._version = [this.formattInput()];
+//   }
   
-  formattInput(){
-    if(this._initialVer == ''|| this._initialVer == undefined){
-      return ['0','0','1'];
-    }else if(Number.parseFloat(this._initialVer == NaN)){
-      throw "Error occured while parsing version!"
-    }
-    let numDecimals = this._initialVer.match(/[.]/g)
-    if(numDecimals== null){
-      this._initialVer += ".0.0";
-    }else if(numDecimals.length==1){
-      this._initialVer += ".0"
-    }
+//   formattInput(){
+//     //console.log(this._initialVer)
+//     if(this._initialVer == ''|| this._initialVer == undefined){
+//       return ['0','0','1'];
+//     }
+//     let numDecimals = this._initialVer.match(/[.]/g)
+//     if(numDecimals== null){
+//       this._initialVer += ".0.0";
+//     }else if(numDecimals.length==1){
+//       this._initialVer += ".0"
+//     }
+//     let versionArr = this._initialVer.split('.').splice(0,3);
+//     //console.log(versionArr)
+//     versionArr.forEach(value => {
+//       if(Number.isNaN(Number(value))){
+//         console.log("error")
+//         throw "Error occured while parsing version!";
+//       }
+//     });
+//     return versionArr;
+//   }  
+//   major(){
+//     //console.log(this._version)
+//     this._version.push([`${Number(this._version[this._version.length-1][0])+1}`,'0','0']);
+//    // console.log(this._version)
+//     return this;
+//     }
+//   minor(){
+//     this._version.push([this._version[this._version.length-1][0],`${Number(this._version[this._version.length-1][1])+1}`,0]);
+//     return this;
+//     }
+//   patch(){
+//     this._version.push([this._version[this._version.length-1][0],this._version[this._version.length-1][1],`${Number(this._version[this._version.length-1][2])+1}`]);
+//     return this;
+//   }
+  
+//   rollback(){
+//     console.log(this._version);
     
-    return this._initialVer.split('.').splice(0,3);
-  }
-  major(){
-    //console.log(this._version)
-    this._version.push([`${Number(this._version[this._version.length-1][0])+1}`,'0','0']);
-   // console.log(this._version)
-    return this;
-    }
-  minor(){
-    this._version.push([this._version[this._version.length-1][0],`${Number(this._version[this._version.length-1][1])+1}`,0]);
-    return this;
-    }
-  patch(){
-    this._version.push([this._version[this._version.length-1][0],this._version[this._version.length-1][1],`${Number(this._version[this._version.length-1][2])+1}`]);
-    return this;
-  }
+// //     try{
+// //       this._version.pop();
+// //       //return this;
+// //     }
+// //     catch(err){
+// //       throw new Error("Cannot rollback!");
+// //     }
+// //     console.log(this._version)
+//     if(this._version[0] == undefined){
+//       throw new Error("Cannot rollback!")
+//     }else if(this._version.length == 1){
+//       throw new Error ("Cannot rollback!")
+//     }else{
+//       this._version.pop()
+//       return this
+//     }
+//    }
   
-  rollback(){
-    try{
-      this._version.pop();
-      return this;
-    }
-    catch(err){
-      throw "Cannot rollback!"
-    }
-  }
-  
-  release(){
-    console.log(this._version);
-    return this._version[this._version.length-1].join('.');
-  }
-}
+//   release(){
+//     console.log(this._version);
+//     return this._version[this._version.length-1].join('.');
+//   }
+// }
 
-const vm =  (initial) => { return new VersionManager(initial);}
+// const vm =  (initial) => { return new VersionManager(initial);}
+
+// class VersionManager{//this one worked finally instuctions on errors were bad and held me up
+//     constructor(intialVer = "0.0.1"){
+//     this._initialVer = intialVer;
+//     this._version = [this.formattInput()];
+//   }
+  
+//   formattInput(){
+//     if(this._initialVer == ''|| this._initialVer == undefined){
+//       return ['0','0','1'];
+//     }
+//     let numDecimals = this._initialVer.match(/[.]/g)
+//     if(numDecimals== null){
+//       this._initialVer += ".0.0";
+//     }else if(numDecimals.length==1){
+//       this._initialVer += ".0"
+//     }
+//     let versionArr = this._initialVer.split('.').splice(0,3);
+//     //console.log(versionArr) testing for why errors not working. needed to throw new Error() not just exception
+//     versionArr.forEach(value => {
+//       if(Number.isNaN(Number(value))){
+//         console.log("error")
+//         throw new Error("Error occured while parsing version!");
+//       }
+//     });
+//     return versionArr;
+//   }  
+//   major(){
+//     this._version.push([`${Number(this._version[this._version.length-1][0])+1}`,'0','0']);
+//     return this;
+//     }
+//   minor(){
+//     this._version.push([this._version[this._version.length-1][0],`${Number(this._version[this._version.length-1][1])+1}`,0]);
+//     return this;
+//     }
+//   patch(){
+//     this._version.push([this._version[this._version.length-1][0],this._version[this._version.length-1][1],`${Number(this._version[this._version.length-1][2])+1}`]);
+//     return this;
+//   }
+  
+//   rollback(){
+//     if(this._version[0] == undefined){
+//       throw new Error("Cannot rollback!")
+//     }else if(this._version.length == 1){
+//       throw new Error ("Cannot rollback!")
+//     }else{
+//       this._version.pop()
+//       return this
+//     }
+//    }
+  
+//   release(){
+//     return this._version[this._version.length-1].join('.');
+//   }
+// }
+
+// const vm =  (initial) => { return new VersionManager(initial);}
