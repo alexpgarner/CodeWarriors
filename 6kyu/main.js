@@ -248,59 +248,136 @@
 
 // const vm =  (initial) => { return new VersionManager(initial);}
 
-class VersionManager{ //Figured out error handling and other issues
-    constructor(intialVer = "0.0.1"){
-    this._initialVer = intialVer;
-    this._version = [this.formattInput()];
-  }
+// class VersionManager{ //Figured out error handling and other issues
+//     constructor(intialVer = "0.0.1"){
+//     this._initialVer = intialVer;
+//     this._version = [this.formattInput()];
+//   }
   
-  formattInput(){
-    if(this._initialVer == ''|| this._initialVer == undefined){
-      return ['0','0','1'];
-    }
-    let numDecimals = this._initialVer.match(/[.]/g)
-    if(numDecimals== null){
-      this._initialVer += ".0.0";
-    }else if(numDecimals.length==1){
-      this._initialVer += ".0"
-    }
-    let versionArr = this._initialVer.split('.').splice(0,3);
-    //console.log(versionArr) testing for why errors not working. needed to throw new Error() not just exception
-    versionArr.forEach(value => {
-      if(Number.isNaN(Number(value))){
-        console.log("error")
-        throw new Error("Error occured while parsing version!");
-      }
-    });
-    return versionArr;
-  }  
-  major(){
-    this._version.push([`${Number(this._version[this._version.length-1][0])+1}`,'0','0']);
-    return this;
-    }
-  minor(){
-    this._version.push([this._version[this._version.length-1][0],`${Number(this._version[this._version.length-1][1])+1}`,0]);
-    return this;
-    }
-  patch(){
-    this._version.push([this._version[this._version.length-1][0],this._version[this._version.length-1][1],`${Number(this._version[this._version.length-1][2])+1}`]);
-    return this;
-  }
+//   formattInput(){
+//     if(this._initialVer == ''|| this._initialVer == undefined){
+//       return ['0','0','1'];
+//     }
+//     let numDecimals = this._initialVer.match(/[.]/g)
+//     if(numDecimals== null){
+//       this._initialVer += ".0.0";
+//     }else if(numDecimals.length==1){
+//       this._initialVer += ".0"
+//     }
+//     let versionArr = this._initialVer.split('.').splice(0,3);
+//     //console.log(versionArr) testing for why errors not working. needed to throw new Error() not just exception
+//     versionArr.forEach(value => {
+//       if(Number.isNaN(Number(value))){
+//         console.log("error")
+//         throw new Error("Error occured while parsing version!");
+//       }
+//     });
+//     return versionArr;
+//   }  
+//   major(){
+//     this._version.push([`${Number(this._version[this._version.length-1][0])+1}`,'0','0']);
+//     return this;
+//     }
+//   minor(){
+//     this._version.push([this._version[this._version.length-1][0],`${Number(this._version[this._version.length-1][1])+1}`,0]);
+//     return this;
+//     }
+//   patch(){
+//     this._version.push([this._version[this._version.length-1][0],this._version[this._version.length-1][1],`${Number(this._version[this._version.length-1][2])+1}`]);
+//     return this;
+//   }
   
-  rollback(){
-    if(this._version[0] == undefined){
-      throw new Error("Cannot rollback!")
-    }else if(this._version.length == 1){
-      throw new Error ("Cannot rollback!")
-    }else{
-      this._version.pop()
-      return this
-    }
-   }
+//   rollback(){
+//     if(this._version[0] == undefined){
+//       throw new Error("Cannot rollback!")
+//     }else if(this._version.length == 1){
+//       throw new Error ("Cannot rollback!")
+//     }else{
+//       this._version.pop()
+//       return this
+//     }
+//    }
   
-  release(){
-    return this._version[this._version.length-1].join('.');
-  }
-}
+//   release(){
+//     return this._version[this._version.length-1].join('.');
+//   }
+// }
 
-const vm =  (initial) => { return new VersionManager(initial);}
+// const vm =  (initial) => { return new VersionManager(initial);}
+
+
+
+// Karan's company makes software that provides different features based on the version of operating system of the user.
+
+// For finding which version is more recent, Karan uses the following method:
+
+// function compareVersions (version1, version2) {
+//   return parseFloat(version1) >= parseFloat(version2);
+// }
+// While this function worked for OS versions 10.6, 10.7, 10.8 and 10.9, the Operating system company just released OS version 10.10.
+
+// Karan's function fails for the new version:
+
+// compareVersions ("10.9", "10.10");       // returns true, while it should return false
+// Karan now wants to spend some time to write a more robust version comparison function that works for any future version/sub-version updates.
+
+// Help Karan write this function. Here are a few sample cases:
+
+// compareVersions("11", "10");                    // returns true
+// compareVersions("11", "11");                    // returns true
+// compareVersions("10.4.6", "10.4");              // returns true
+// compareVersions("10.4", "11");                  // returns false
+// compareVersions("10.4", "10.10");               // returns false
+// compareVersions("10.4.9", "10.5");              // returns false
+// It can be assumed that version strings are non empty and only contain numeric literals and the character '.'.
+
+// /function compareVersions (version1, version2) {
+//   let version1Arr = version1.split('.');
+//   let version2Arr = version2.split('.');
+//   let longer = version1Arr.length >= version2Arr.length ? version1Arr.length:version2Arr.length;
+//     console.log(version1Arr +" " + version2Arr + ` longer=${longer}`)
+//   for(let i = 0;i<longer;i++){
+//       console.log(version1Arr[i] + " " +version2Arr[i])
+//       if(Number(version1Arr[i])>Number(version2Arr[i])){
+//         return true;
+//       }else if(Number(version1Arr[i])<Number(version2Arr[i])){
+//         return false;
+//       }else if(Number(version1Arr[i])==Number(version2Arr[i]) && ( i == longer-1)){
+//         console.log(i)
+//         return  true;
+//       }else if(version1Arr[i] == undefined){
+//         return false;
+//       }else if(version2Arr[i] == undefined){
+//         return true;
+//       }
+//   }
+// }
+
+///clever answer I found. undefined is falsy? 
+// const compareVersions = (v1, v2) => {
+//   const a1 = v1.split('.').map(Number);
+//   const a2 = v2.split('.').map(Number);
+//   for (let i = 0; i < Math.max(a1.length, a2.length); i++) {
+//     let n1 = a1[i] || 0, n2 = a2[i] || 0;
+//     if (n1 === n2) continue;
+//     return (n1 > n2) ? true : false;
+//   }
+//   return true;
+// };
+
+//ANOTHER answer I like even better. Need to review falsy stuff
+// function compareVersions (version1, version2) {
+//   version1 = version1.split('.')
+//   version2 = version2.split('.')
+
+//   while (version1.length && version2.length) {
+//     const ver1 = Number(version1.shift())
+//     const ver2 = Number(version2.shift())
+    
+//     if (ver1 !== ver2) {
+//       return ver1 > ver2
+//     }
+//   }
+  
+//   return version2.length === 0
+// }
