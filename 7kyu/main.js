@@ -146,7 +146,7 @@
 // });
 
 //clever solution I saw with filter() and arrow functions.
-
+//uses filter with a callback that returns true an element in array === search. that shallow copy array length is number of occurences.
 // Array.prototype.numberOfOccurrences = function(search) {
 //   return this.filter( function(num){ return search === num } ).length;
 // }

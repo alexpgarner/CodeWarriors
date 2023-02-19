@@ -381,3 +381,37 @@
   
 //   return version2.length === 0
 // }
+
+// You certainly can tell which is the larger number between 210 and 215.
+
+// But what about, say, 210 and 310? You know this one too.
+
+// Things tend to get a bit more complicated with both different bases and exponents: which is larger between 39 and 56?
+
+// Well, by now you have surely guessed that you have to build a function to compare powers, returning -1 if the first member is larger, 0 if they are equal, 1 otherwise; powers to compare will be provided in the [base, exponent] format:
+
+// comparePowers([2,10],[2,15])===1
+// comparePowers([2,10],[3,10])===1
+// comparePowers([2,10],[2,10])===0
+// comparePowers([3,9],[5,6])===-1
+// comparePowers([7,7],[5,8])===-1
+// Only positive integers will be tested, including bigger numbers - you are warned now, so be diligent try to implement an efficient solution not to drain too much on CW resources ;)!
+
+
+// function comparePowers(n1,n2){
+//     let bigger = (n1[1]>n2[1]) ? n1[1] : n2[1];
+//     num1 = Math.pow(n1[0],n1[1]/bigger)
+//     num2 = Math.pow(n2[0],n2[1]/bigger)
+//     if(num1 > num2){
+//       return -1;
+//     }else if(num1 <num2){
+//       return 1;
+//     }else{
+//       return 0;
+//     }
+//   }
+// Clever solution because I don't remember math. putting arrays in parameters with variables didn't know about that .
+// function comparePowers([b1, e1], [b2, e2]) {
+//     let d = Math.log(b2) * e2 - Math.log(b1) * e1;
+//     return (d > 0) - (d < 0);
+//   }
