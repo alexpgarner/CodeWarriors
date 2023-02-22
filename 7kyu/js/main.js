@@ -188,22 +188,38 @@
 
 // Kata in this Series
 
-//Haven't solved yet.
-// Recover toString() here :)
-Object.prototype.toString =function(){
-  console.log(typeof this.value)
-  switch(typeof this.value){
-      case 'boolean':
-        return(`${this.value}`);
-      case 'string':
-        return(`${this.value}`);
-      case 'object':
-        return (`[${this.value}]`);
-      default:
-        console.log(typeof this.value + ` ${this.value}`)
-        return "HELLO IM BROKEN";
-        break;
-  } 
-}
+// //Haven't solved yet.
+// // Recover toString() here :)
+// Object.prototype.toString =function(){
+//   console.log(typeof this.value)
+//   switch(typeof this.value){
+//       case 'boolean':
+//         return(`${this.value}`);
+//       case 'string':
+//         return(`${this.value}`);
+//       case 'object':
+//         return (`[${this.value}]`);
+//       default:
+//         console.log(typeof this.value + ` ${this.value}`)
+//         return "HELLO IM BROKEN";
+//         break;
+//   } 
+// }
 
-console.log([1,12,3].toString())
+// //Since each datatype's prototype overrode Object.prototype.toString(), I had to rewrite each instaed of just Object.toString()
+// //Recover toString() here :)
+// String.prototype.toString = function(){
+//   return `${this.valueOf()}`
+// }
+
+// Number.prototype.toString = function(){
+//   return `${this.valueOf()}`
+// }
+
+// Boolean.prototype.toString = function(){
+//   return `${this.valueOf()}`
+// }
+
+// Array.prototype.toString = function(){
+//   return `[${this.join()}]`
+// }
