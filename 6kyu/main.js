@@ -503,4 +503,11 @@
 //     }
 //     return numNarc == value ? true:false;
 // }
-  
+
+
+//clever answer that I was thinking of but didn't do.
+// function narcissistic( value ) {
+//     return ('' + value).split('').reduce(function(p, c){
+//       return p + Math.pow(c, ('' + value).length)
+//       }, 0) == value;
+//   }
